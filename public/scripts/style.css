@@ -1,0 +1,14 @@
+body {
+    background-color: #8B4513;
+    color: #FFFFFF;
+}
+
+a {
+    color: #A52A2A;
+}
+
+a:hover {
+    color: #DAA520;
+}
+
+/* Ajoutez d'autres styles selon vos besoins */

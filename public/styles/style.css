@@ -1,0 +1,16 @@
+body {
+    background-color: #006837; /* Fond Principal */
+    color:#FFD100; /* Texte Principal */
+}
+nav     {
+color:#FFD100;/
+
+}
+
+a {
+    color: #DA121A; /* Liens */
+}
+
+a:hover {
+    color: #FFD100; /* Accent pour les liens au survol */
+}

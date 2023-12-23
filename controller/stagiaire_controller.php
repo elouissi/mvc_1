@@ -1,10 +1,11 @@
 <?php
 require 'model/stagiaire.php';
 
- 
+ class Controller extends CrudEquipe{
+
       function index()
     {
-        $equipes = latest();
+        $equipes = $this->latest();
         require 'views/list_stagiaires.php';
      }
      function createAction(){
@@ -12,20 +13,20 @@ require 'model/stagiaire.php';
 
      }
      function storeAction(){
-        create();
+         $create=$this->create();
         header('location:index.php?action=list');
      }
      function editAction(){
         
             $id = $_GET['id'];
-            $equipe = view($id);
+            
+            $equipe =$this->view($id);
             require 'views/edit.php';
-       
     }
      function updateAction(){
     
         extract($_POST);
-         edit($nom, $description,$id);
+        $edit = $this->edit($nom,$Federation, $Stade_national, $description,$id);
         header('location:index.php?action=list');
         // $id = $_GET['id'];
         // destroy($id);
@@ -39,9 +40,10 @@ require 'model/stagiaire.php';
      }
      function destroyAction(){
         $id = $_GET['id'];
-        destroy($id);
+        $destroy =$this->destroy($id);
         header('location:index.php?action=list');
 
      }
+   }
 
  

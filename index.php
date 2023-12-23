@@ -4,25 +4,33 @@ require 'controller/stagiaire_controller.php';
     $action = $_GET['action'];
     switch($action){
         case 'create':
-            createAction();
+            $create = new Controller();
+            $create->createAction();
             break;
         case 'list':
-            index();
+            $index = new Controller();
+            $index->index();
             break;
         case 'destroy':
-            destroyAction();
+            $destroy =new controller();
+            $destroy->destroyAction(); 
             break;
         case 'edit':
-            editAction();
+            $edit = new controller();
+            $edit->editAction();
             break;
         case 'store':
-            storeAction();
+            $store = new Controller();
+            $store->storeAction(); 
             break;
         case 'update':
-            updateAction();
+            $update = new controller();
+            $update->updateAction();
             break;
         case 'delete':
-            deleteAction();
+            $delete = new controller();
+            $delete-> deleteAction();
+           
             break;
     }
  }

@@ -9,6 +9,14 @@ ob_start();
         <label>nom</label>
         <input type="text" class="form-control" name="nom" required> 
     </div>
+    <label>Federation</label>
+    <div class="form-group">
+        <input type="text" class="form-control" name="Federation" required> 
+    </div>
+    <label>Stade_national</label>
+    <div class="form-group">
+        <input type="text" class="form-control" name="Stade_national" required> 
+    </div>
     <label>description</label>
     <div class="form-group">
         <input type="text" class="form-control" name="description" required> 
@@ -17,7 +25,7 @@ ob_start();
     
 
     <div class="form-group">
-        <input type="submit" class="btn btn-success my-2"  value="Ajouter" name="ajouter"> 
+        <input type="submit" class="btn btn-warning my-2"  value="Ajouter" name="ajouter"> 
 
     </div>
 </form>

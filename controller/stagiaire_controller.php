@@ -3,8 +3,7 @@ require 'model/stagiaire.php';
 
  class Controller extends CrudEquipe{
 
-      function index()
-    {
+      function index(){
         $equipes = $this->latest();
         require 'views/list_stagiaires.php';
      }
@@ -12,17 +11,24 @@ require 'model/stagiaire.php';
         require 'views/create.php'; 
 
      }
-     function storeAction(){
-         $create=$this->create();
-        header('location:index.php?action=list');
-     }
-     function editAction(){
-        
+      function storeAction(){
+         // $pdo = new Connexion();
+         // $pdo->getConnection();
+         
+         $data = array(
+            'nom' => $_POST['nom'],
+            'Federation' => $_POST['Federation'],
+            'Stade_national' => $_POST['Stade_national'],
+            'description' => $_POST['description'] ,);
+            $create=$this->create( $table="equipes", $data);
+         header('location:index.php?action=list');
+      }
+       function editAction(){ 
             $id = $_GET['id'];
             
             $equipe =$this->view($id);
             require 'views/edit.php';
-    }
+      }
      function updateAction(){
     
         extract($_POST);

@@ -11,10 +11,7 @@ require 'model/stagiaire.php';
         require 'views/create.php'; 
 
      }
-      function storeAction(){
-         // $pdo = new Connexion();
-         // $pdo->getConnection();
-         
+     function storeAction(){ 
          $data = array(
             'nom' => $_POST['nom'],
             'Federation' => $_POST['Federation'],
@@ -22,8 +19,8 @@ require 'model/stagiaire.php';
             'description' => $_POST['description'] ,);
             $create=$this->create( $table="equipes", $data);
          header('location:index.php?action=list');
-      }
-       function editAction(){ 
+     }
+      function editAction(){ 
             $id = $_GET['id'];
             
             $equipe =$this->view($id);
@@ -32,7 +29,12 @@ require 'model/stagiaire.php';
      function updateAction(){
     
         extract($_POST);
-        $edit = $this->edit($nom,$Federation, $Stade_national, $description,$id);
+        $data = array(
+         'nom' => $_POST['nom'],
+         'Federation' => $_POST['Federation'],
+         'Stade_national' => $_POST['Stade_national'],
+         'description' => $_POST['description'] ,);
+        $edit = $this->edit($table='equipes',$data,$id);
         header('location:index.php?action=list');
         // $id = $_GET['id'];
         // destroy($id);
@@ -46,7 +48,7 @@ require 'model/stagiaire.php';
      }
      function destroyAction(){
         $id = $_GET['id'];
-        $destroy =$this->destroy($id);
+        $destroy =$this->destroy($table="equipes",$id);
         header('location:index.php?action=list');
 
      }

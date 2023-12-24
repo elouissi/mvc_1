@@ -7,15 +7,6 @@ include'Connexion.php';
     parent::__construct(); // Appel du constructeur de Connexion pour initialiser la connexion PDO
 }
 
-
-
-
- 
-
-   //  function getConnection(){
-   //      return  $pdo = new PDO('mysql:dbname=caf;host=localhost', 'root', '');
-
-   //  }
  
     function create($table, $data){
 
@@ -52,21 +43,61 @@ include'Connexion.php';
           die("Error: " . $e->getMessage());
       }
  
-  }
-   
-    
+    } 
      function store(){
         var_dump($_POST);
     } 
-     function edit($nom, $Federation, $Stade_national, $description, $id){
+     function edit($table,$data, $id){
       $pdo = $this->getConnection();
-      $sqlState = $pdo->prepare("UPDATE equipes SET nom=?, Federation=?, Stade_national=?, description=? WHERE id=?"); 
-      return $sqlState->execute([$nom, $Federation, $Stade_national, $description, $id]);
+      // $sqlState = $pdo->prepare("UPDATE equipes SET nom=?, Federation=?, Stade_national=?, description=? WHERE id=?"); 
+      // return $sqlState->execute([$nom, $Federation, $Stade_national, $description, $id]);
+
+ 
+        // Use prepared statements to prevent SQL injection
+        $placeholders = [];
+        foreach ($data as $key => $value) {
+            $placeholders[] = "$key = :$key";
+        }
+
+        $sql = "UPDATE $table SET " . implode(', ', $placeholders) . " WHERE id = :id";
+        $data['id'] = $id;
+
+        $stmt = $pdo->prepare($sql);
+
+        // Bind parameters to the prepared statement
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+
+        // Execute the prepared statement
+        $result = $stmt->execute();
+
+        return $result;
+    
     } 
-     function destroy($id){
-      $pdo = $this->getConnection();
-      $sqlState = $pdo->prepare("DELETE FROM equipes WHERE id=? ");  
-        return $sqlState->execute([$id]);
+     function destroy($table,$id){
+    
+          $pdo = $this->getConnection(); 
+          // Use a prepared statement to prevent SQL injection
+          $sql = "DELETE FROM $table WHERE id = :id";
+          $stmt = $pdo->prepare($sql);
+
+          // Bind parameters to the prepared statement
+          $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+          // Execute the prepared statement
+          $result = $stmt->execute();
+          if($result){
+              echo "\n<br>delete complete \n";
+          }else{
+             echo " no succusful delete ";
+          } 
+          // Close the statement
+          $stmt->closeCursor();
+
+          return $result;
+
+  
  
     }
      function view($id){
@@ -79,7 +110,9 @@ include'Connexion.php';
      function latest(){
       
         $pdo = $this->getConnection();
-        return  $pdo->query('SELECT * FROM equipes')->fetchAll(PDO::FETCH_OBJ);    
+        return  $pdo->query('SELECT * FROM equipes')->fetchAll(PDO::FETCH_OBJ);
+         
+      
     }
 
   }

@@ -1,5 +1,5 @@
 <?php
-require 'model/stagiaire.php';
+require 'model/equipe.php';
 
  class Controller extends CrudEquipe{
 

@@ -1,6 +1,6 @@
  
 <?php
-require 'controller/stagiaire_controller.php';
+require 'controller/equipe_controller.php';
 
 function routeRequest() {
     $actions = [
@@ -26,7 +26,12 @@ function routeRequest() {
 
     } else {
         // Gérer les cas où aucune action n'est spécifiée
-        echo 'No action specified';
+      notFound();
     }
 }
 }
+function notFound() {
+    http_response_code(404);
+    echo '404 Not Found';
+}
+
